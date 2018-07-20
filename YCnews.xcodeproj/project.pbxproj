@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		392F71E620F3BF0B00D92134 /* EasyVFL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392F71E520F3BF0B00D92134 /* EasyVFL.swift */; };
+		3945D80220FAD52800D1F3C6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D80120FAD52800D1F3C6 /* SettingsViewController.swift */; };
+		3945D80620FAE3C300D1F3C6 /* EasyVFL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945D80520FAE3C300D1F3C6 /* EasyVFL.swift */; };
 		39CF38D020EA5C70007CD5AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CF38CF20EA5C70007CD5AC /* AppDelegate.swift */; };
 		39CF38D220EA5C70007CD5AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CF38D120EA5C70007CD5AC /* ViewController.swift */; };
 		39CF38D520EA5C70007CD5AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CF38D320EA5C70007CD5AC /* Main.storyboard */; };
@@ -39,7 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		392F71E520F3BF0B00D92134 /* EasyVFL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyVFL.swift; sourceTree = "<group>"; };
+		3945D80120FAD52800D1F3C6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3945D80520FAE3C300D1F3C6 /* EasyVFL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasyVFL.swift; path = ../../EasyVFL/EasyVFL.swift; sourceTree = "<group>"; };
 		39CF38CC20EA5C70007CD5AC /* YCnews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YCnews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39CF38CF20EA5C70007CD5AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39CF38D120EA5C70007CD5AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,15 +109,16 @@
 		39CF38CE20EA5C70007CD5AC /* YCnews */ = {
 			isa = PBXGroup;
 			children = (
+				3945D80520FAE3C300D1F3C6 /* EasyVFL.swift */,
 				39CF38CF20EA5C70007CD5AC /* AppDelegate.swift */,
 				39CF38D120EA5C70007CD5AC /* ViewController.swift */,
 				39EF154520F64EBB006BBBE7 /* PostViewController.swift */,
 				39D6C85720EFB5A700CB7A69 /* PostDetailViewController.swift */,
+				3945D80120FAD52800D1F3C6 /* SettingsViewController.swift */,
 				39CF38D320EA5C70007CD5AC /* Main.storyboard */,
 				39CF38D620EA5C72007CD5AC /* Assets.xcassets */,
 				39CF38FD20EA5CA4007CD5AC /* API.swift */,
 				39CF38FF20EA5CE5007CD5AC /* SwiftyJSON.swift */,
-				392F71E520F3BF0B00D92134 /* EasyVFL.swift */,
 				39CF38D820EA5C72007CD5AC /* LaunchScreen.storyboard */,
 				39CF38DB20EA5C72007CD5AC /* Info.plist */,
 			);
@@ -271,13 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				392F71E620F3BF0B00D92134 /* EasyVFL.swift in Sources */,
 				39CF38D220EA5C70007CD5AC /* ViewController.swift in Sources */,
 				39EF154620F64EBB006BBBE7 /* PostViewController.swift in Sources */,
+				3945D80620FAE3C300D1F3C6 /* EasyVFL.swift in Sources */,
 				39CF38FE20EA5CA4007CD5AC /* API.swift in Sources */,
 				39D6C85820EFB5A700CB7A69 /* PostDetailViewController.swift in Sources */,
 				39CF38D020EA5C70007CD5AC /* AppDelegate.swift in Sources */,
 				39CF390020EA5CE5007CD5AC /* SwiftyJSON.swift in Sources */,
+				3945D80220FAD52800D1F3C6 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

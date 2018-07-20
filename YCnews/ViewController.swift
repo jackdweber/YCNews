@@ -43,6 +43,9 @@ class ViewController: UITableViewController {
     
     //Table functions
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if count == 0 {
+            return 1
+        }
         return count
     }
     
@@ -61,6 +64,20 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath)
         let vfl = EasyVFL(parentView: cell.contentView)
         cell.contentView.backgroundColor = tan
+        
+        if count == 0 {
+            let label = UILabel()
+            label.tag = 99
+            label.text = "Loading Content..."
+            label.translatesAutoresizingMaskIntoConstraints = false
+            vfl.addView(name: "load", view: label)
+            vfl.addVFL(items: ["V:|[load]|"])
+            return cell
+        } else {
+            if let tagged = cell.contentView.viewWithTag(99){
+                tagged.isHidden = true
+            }
+        }
         
         guard let items = json.array, let story = stories[items[indexPath.row].int!], let title = story["title"].string else {
             return cell
@@ -137,8 +154,10 @@ class ViewController: UITableViewController {
                     default:
                         return
                     }
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                    if story == arr.last {
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
                     }
                 })
             }
