@@ -13,7 +13,7 @@ class PostDetailViewController: UITableViewController {
     var post: JSON!
     
     var offset: Int!
-    let offsetLength = 8;
+    let offsetLength = 6;
     
     let api = API(urlString: "https://hacker-news.firebaseio.com/v0/")
     var commentList = [(JSON, Int)]()
@@ -66,13 +66,16 @@ class PostDetailViewController: UITableViewController {
         offsetView.backgroundColor = orange
         vfl.addView(name: "offset", view: offsetView)
         
-        vfl.addVFL(items: ["H:|-[offset(==\(width))]-[title]-|",
+        vfl.addVFL(items: ["H:|-(==\(width - offsetLength))-[offset(==\(offsetLength))]-[title]-|",
                            "H:|-[vote]-(>=1)-|",
                            "V:|[offset]|",
                            "V:|-[title]-[vote]-|"])
         
         if indexPath.row == 0 {
             titleLabel.text = post["title"].string
+            if commentList.count == 0 {
+                titleLabel.text = "It's empty in here..."
+            }
             titleLabel.numberOfLines = 3
             voteLabel.text = ""
             return cell

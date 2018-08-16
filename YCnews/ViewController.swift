@@ -11,11 +11,17 @@ import UIKit
 let orange = UIColor(red: 252/255, green: 102/255, blue: 33/255, alpha: 1.0)
 let tan = UIColor(red: 246/255, green: 246/255, blue: 239/255, alpha: 1.0)
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+    }
+    
     
     let api = API(urlString: "https://hacker-news.firebaseio.com/v0/")
     var json: JSON!
     var count = 0;
+    var totalCount = 30;
     var stories = [Int: JSON]()
 
     override func viewDidLoad() {
@@ -23,6 +29,8 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         tableView.backgroundColor = tan
         performSelector(inBackground: #selector(fetchData), with: nil)
+        tableView.prefetchDataSource = self
+        tableView.showsVerticalScrollIndicator = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,10 +51,7 @@ class ViewController: UITableViewController {
     
     //Table functions
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if count == 0 {
-            return 1
-        }
-        return count
+        return totalCount
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -60,25 +65,17 @@ class ViewController: UITableViewController {
         performSegue(withIdentifier: "presentPost", sender: story)
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath)
         let vfl = EasyVFL(parentView: cell.contentView)
         cell.contentView.backgroundColor = tan
-        
-        if count == 0 {
-            let label = UILabel()
-            label.tag = 99
-            label.text = "Loading Content..."
-            label.translatesAutoresizingMaskIntoConstraints = false
-            vfl.addView(name: "load", view: label)
-            vfl.addVFL(items: ["V:|[load]|"])
+        if indexPath.row >= count {
             return cell
-        } else {
-            if let tagged = cell.contentView.viewWithTag(99){
-                tagged.isHidden = true
-            }
         }
-        
         guard let items = json.array, let story = stories[items[indexPath.row].int!], let title = story["title"].string else {
             return cell
         }
@@ -143,6 +140,7 @@ class ViewController: UITableViewController {
             guard let arr = jsn.array else {
                 return
             }
+            self.totalCount = arr.count
             for story in arr {
 //                print(story.int!)
                 self.api.get(ext: "item/\(story.int!).json", completion:{ (res) in
@@ -154,7 +152,7 @@ class ViewController: UITableViewController {
                     default:
                         return
                     }
-                    if story == arr.last {
+                    if story == arr[10] {
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
@@ -185,5 +183,22 @@ extension UIViewController {
         let alert = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension UITableView {
+    func reloadDataSmoothly() {
+        UIView.setAnimationsEnabled(false)
+        CATransaction.begin()
+        
+        CATransaction.setCompletionBlock { () -> Void in
+            UIView.setAnimationsEnabled(true)
+        }
+        
+        reloadData()
+        beginUpdates()
+        endUpdates()
+        
+        CATransaction.commit()
     }
 }
